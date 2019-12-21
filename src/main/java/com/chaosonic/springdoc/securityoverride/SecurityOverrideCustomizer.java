@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.PathItem;
 import org.springdoc.api.OpenApiCustomiser;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
