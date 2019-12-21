@@ -22,7 +22,7 @@ public class SecurityOverrideCustomizer implements OpenApiCustomiser {
 
     public static final List<Function<PathItem, Operation>> OPERATION_GETTERS = Arrays.asList(
             PathItem::getGet, PathItem::getPost, PathItem::getDelete, PathItem::getHead,
-            PathItem::getOptions, PathItem::getPatch, PathItem::getPut);
+            PathItem::getOptions, PathItem::getPatch, PathItem::getPut, PathItem::getTrace);
 
     @Override
     public void customise(OpenAPI openApi) {
