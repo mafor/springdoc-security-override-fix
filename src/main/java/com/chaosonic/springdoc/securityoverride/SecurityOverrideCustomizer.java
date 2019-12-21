@@ -27,19 +27,22 @@ public class SecurityOverrideCustomizer implements OpenApiCustomiser {
     public void customise(OpenAPI openApi) {
         openApi.getPaths().forEach((path, item) -> getOperations(item).forEach(operation -> {
             List<String> tags = operation.getTags();
-            if (tags != null && tags.contains(UNSECURED) && operation.getSecurity() == null) {
+            if (tags != null && tags.contains(UNSECURED)) {
                 operation.setSecurity(Collections.emptyList());
-                operation.setTags(
-                        tags.stream()
-                                .filter(t -> !t.equals(UNSECURED))
-                                .collect(Collectors.toList()));
+                operation.setTags(filterTags(tags));
             }
         }));
     }
 
-    private Stream<Operation> getOperations(PathItem pathItem) {
+    private static Stream<Operation> getOperations(PathItem pathItem) {
         return OPERATION_GETTERS.stream()
                 .map(getter -> getter.apply(pathItem))
                 .filter(Objects::nonNull);
+    }
+
+    private static List<String> filterTags(List<String> tags) {
+        return tags.stream()
+                .filter(t -> !t.equals(UNSECURED))
+                .collect(Collectors.toList());
     }
 }
